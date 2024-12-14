@@ -1,0 +1,65 @@
+:root{
+  --color-background:#0f0f0f;
+  --color-primary:#cc4455;
+  --color-text:#f2f2f2;
+
+}
+
+.sobreMim__container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.sobreMim__container-alt{
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+
+}
+
+.sobreMim__img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sobreMim__img img, .sobreMim__img iframe{
+
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .sobreMim__container{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.col-2{
+  grid-column: span 2 / span 2;
+}
+
+.col-3{
+  grid-column: span 3 / span 3;
+}
+.col-5{
+  grid-column: span 5 / span 5;
+}
+
+.tese__container{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .tese__container{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+.tese__container span{
+  opacity: 40%;
+}

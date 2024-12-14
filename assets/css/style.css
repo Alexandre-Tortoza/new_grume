@@ -1,0 +1,139 @@
+@import url('./reset.css');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Fira+Mono:wght@400;500;700&display=swap');
+@import url(./reset.css);
+
+:root{
+  --color-background:#0f0f0f;
+  --color-primary:#cc4455;
+  --color-text:#f2f2f2;
+
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'EB Garamond', serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0 2rem;
+}
+
+
+main,
+header,
+footer{
+  max-width: 1024px;
+  margin: auto;
+
+}
+
+p{
+  font-size: 1.25rem;
+  line-height: 2.25rem;
+}
+h2{
+  font-size: 3rem;
+  line-height: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+button{
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--color-primary);
+
+  margin-top: 2rem;
+  padding: .5rem 2rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+  transition: 1s;
+}
+
+button:hover{
+  color: var(--color-text);
+
+  background-color: var(--color-primary);
+}
+
+/* Header CSS*/
+header{
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+  margin-bottom: 8rem;
+}
+header nav ul{
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1.25rem;
+
+}
+header a{
+color: var(--color-text);
+text-decoration: none !important;
+}
+.headerLink-active a{
+  color: var(--color-primary) ;
+}
+
+@media (max-width: 720px) {
+  header nav > ul{
+    display: none;
+  }
+}
+
+/* / - Quem Somos && / - Missão e Visão */
+
+.quemSomos__container, .missaoVisao__container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.quemSomos__img, .missaoVisao__img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quemSomos__img img, .missaoVisao__img img{
+
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .quemSomos__container, .missaoVisao__container{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+/* / - Valores */
+.valores__container{
+  margin-top: 4rem;
+}
+
+/* / - Missão e Visão */
+.missaoVisao__container{
+  margin-top: 4rem;
+}
+
+/* / - Nossos encontros */
+.nossosEncontros__container{
+  margin-top: 4rem;
+}
+
+/* / - Projeto Guarda-chuva */
+.projetoGuardaChuva__container{
+  margin-top: 4rem;
+}
+
+/* Footer CSS*/
+footer{
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
