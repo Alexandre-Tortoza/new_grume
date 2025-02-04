@@ -1,6 +1,4 @@
 <?php
-// db_connection.php
-
 $localhost = 'localhost:3306'; 
 $my_user = 'root'; 
 $my_password = 'root'; 

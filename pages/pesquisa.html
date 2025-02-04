@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -7,39 +7,59 @@
     <title>Grume | Pesquisa</title>
 
     <!-- Css Import -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/pesquisa.css">
+    <link rel="stylesheet" href="../assets/css/stylesTailwind.css">
 </head>
 
 <body>
     <header id="header__container"></header>
 
-
     <main>
-        <div class="pesquisa__container">
-            <div>
-                <h2>Pesquisa</h2>
-                <p>
-                    Aqui você encontra toda a produção científica do GRUME das últimas décadas: nossa equipe atual de estudantes, as monografias resultantes de todas as orientações já concluídas sob a orientação do professor Danilo Ramos (níveis: iniciação científica, mestrado e doutorado) e todas as publicações do GRUME, que envolvem livros, capítulos de livros, artigos acadêmicos e apresentação de trabalhos nos principais congressos da área de cognição musical no Brasil e no mundo.
-                </p>
-            </div>
-            <div class="pesquisa__img">
-                <img src="../assets/images/grupo_pesquisa.png" alt="Foto do Grupo Grume">
-            </div>
+        <div class="flex justify-center gap-4">
+            <button class="btn-outline-primary w-40">Equipe</button>
+            <button class="btn-outline-primary w-40">Orientações</button>
+            <button class="btn-outline-primary w-40">Publicações</button>
+            <button class="btn-outline-primary w-40">Documentos</button>
         </div>
+        <div class="mt-16" id="contentContainer">
+            <div class="grid grid-cols-2 gap-8" id="content">
 
+
+                <div class="rounded-md border border-accent-default p-4 max-w-3xl mx-auto hover:scale-105 hover:border-accent-600 transition-all duration-150 ease-in flex flex-col justify-between">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <img src="https://avatars.githubusercontent.com/u/85268093?v=4" alt="Imagem do Card" class="w-full sm:w-auto rounded-md object-cover max-md:m-auto size-48">
+
+                        <div class="sm:col-span-2">
+                            <h3 class="font-semibold  ">Alexandre Marques Tortoza Canoa</h3>
+                            <p class="mt-2 text-base text-dark-400">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor nihil expedita, quia in nobis esse quod minus aperiam, atque pariatur beatae. Eius dicta pariatur voluptate reprehenderit, animi unde nulla vel! lorem
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Informações Adicionais -->
+                    <div class="mt-4 flex flex-col sm:flex-row sm:justify-between sm:items-center text-accent-default">
+                        <p class="text-sm ">26/10/2001</p>
+                        <ul class="flex gap-8 mt-2 sm:mt-0 font-sans">
+                            <li>
+                                <a href="javascript:void(0);" class="flex gap-2 hover:brightness-125"><img src="../assets/icons/cv.svg" alt="Currículo">Currículo</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="flex gap-2 hover:brightness-125"><img src="../assets/icons/mail.svg" alt="Email"> Email</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
     </main>
-
-    <aside>
-        <div id="member__container">
-
-        </div>
-    </aside>
 
     <footer id="footer__container"></footer>
 
-    <script src="../scripts/index.js" type="module"></script>
-    <script src="../scripts/javaScript/pesquisa.js" type="module"></script>
+    <script src="../scripts/javaScript/index.js" type="module"></script>
+    <script src="../scripts/javaScript/pesquisa/index.js" type="module"></script>
 </body>
 
 </html>

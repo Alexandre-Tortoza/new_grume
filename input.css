@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@theme {
+  --color-accent-default: #c44d58;
+  --color-accent-50: #f2d7d9;
+  --color-accent-100: #edc8cb;
+  --color-accent-200: #e2a9ae;
+  --color-accent-300: #d88a91;
+  --color-accent-400: #ce6c75;
+  --color-accent-500: #c44d58;
+  --color-accent-600: #a33640;
+  --color-accent-700: #79282f;
+  --color-accent-800: #4f1a1f;
+  --color-accent-900: #250c0e;
+  --color-accent-950: #0f0506;
+
+  --color-dark-default: #141316;
+  --color-dark-50: #c0bdc6;
+  --color-dark-100: #b6b2bd;
+  --color-dark-200: #a19daa;
+  --color-dark-300: #8c8797;
+  --color-dark-400: #787283;
+  --color-dark-500: #645f6e;
+  --color-dark-600: #504c58;
+  --color-dark-700: #3c3942;
+  --color-dark-800: #28262c;
+  --color-dark-900: #141316;
+  --color-dark-950: #060607;
+
+  --font-primary: "Montserrat", serif;
+  --font-ui: "Roboto", serif;
+}
+
+@layer base {
+  body {
+    @apply font-primary bg-dark-default text-dark-50 max-w-6xl mx-auto text-justify text-xl;
+  }
+  h2 {
+    @apply text-5xl;
+  }
+}
+
+@layer components {
+  #header__container {
+    @apply flex justify-between py-8  mb-16 text-lg;
+  }
+  #footer__container {
+    @apply flex justify-between py-8  mt-16;
+  }
+  .btn-outline-primary {
+    @apply px-4 py-2 border border-accent-default rounded-md text-lg 
+    hover:bg-accent-default text-white font-semibold transition-all 
+    duration-300 ease-in-out font-sans cursor-pointer;
+  }
+  .btn-active {
+    @apply bg-accent-default;
+  }
+}

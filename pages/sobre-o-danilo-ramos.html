@@ -1,76 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grume | Professor Danilo Ramosos</title>
 
     <!-- Css Import -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/sobre-o-danilo-ramos.css">
+    <link rel="stylesheet" href="../assets/css/stylesTailwind.css">
 </head>
+
 <body>
     <header id="header__container"></header>
 
-      <main>
-          <div class="sobreMim__container">
-              <div class="quemSomos__img">
-                  <img src="../assets/images/foto_daniloRamos.png" alt="Foto do Grupo Grume">
-                 </div>
-              <div class="col-2">
-                  <h2>Professor Danilo Ramos</h2>
-                  <p>
-                      É bacharel em piano popular pela Universidade Estadual de Campinas (UNICAMP) na classe do professor Hilton Jorge Valente (Gogô). É mestre e doutor em psicologia pela Universidade do Estado de São Paulo (USP). No ano de 2010, concluiu seu pós-doutorado desenvolvendo pesquisas no campo da cognição musical no Laboratório de Estudos sobre Aprendizagem e Desenvolvimento (LEAD) da Universidade de Borgonha, França, sob a supervisão de Emmanuel Bigand. Em 2020, concluiu especialização em psicologia corporal pelo Instituto Reichiano de Curitiba.
-                  </p>
-              </div>
-          </div>
-          <div class="sobreMim__container sobreMim__container-alt">
-              <div class="col-5">
+    <main>
 
-                  <p>
-                      Atualmente, é professor associado do Departamento de Artes da Universidade Federal do Paraná, onde ministra disciplinas nas áreas de cognição musical e piano nos cursos de graduação e pós-graduação. Foi coordenador do Programa de Pós-Graduação em Música da Universidade Federal do Paraná (período: 2014-2015) e presidente do comitê responsável pela criação, aprovação e implantação do curso de doutorado dessa instituição. Atualmente, atua como parecerista na equipe editorial dos seguintes periódicos científicos: Frontiers in Psychology (Suíça), Avances em psicología latino-americana (Colômbia), Revista da Associação Brasileira de Educação Musical (Brasil), Música Hodie (Goiânia, Brasil), Música em Perspectiva, Vórtex (Curitiba, Paraná) e Percepta (revista da Associação Brasileira de Cognição Musical).
-                  </p>
-              </div>
-              <div class="sobreMim__img col-3" >
-                  <iframe
-                      width="500"
-                      height="250"
-                      src="https://www.youtube.com/embed/IRKEBKWyFRU?si=Ed_qJ62wDdLTEOMv"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin"
-                      allowfullscreen
-                    ></iframe>
-                 </div>
-          </div>
-          <p>
-              Atualmente, é professor associado do Departamento de Artes da Universidade Federal do Paraná, onde ministra disciplinas nas áreas de cognição musical e piano nos cursos de graduação e pós-graduação. Foi coordenador do Programa de Pós-Graduação em Música da Universidade Federal do Paraná (período: 2014-2015) e presidente do comitê responsável pela criação, aprovação e implantação do curso de doutorado dessa instituição. Atualmente, atua como parecerista na equipe editorial dos seguintes periódicos científicos: Frontiers in Psychology (Suíça), Avances em psicología latino-americana (Colômbia), Revista da Associação Brasileira de Educação Musical (Brasil), Música Hodie (Goiânia, Brasil), Música em Perspectiva, Vórtex (Curitiba, Paraná) e Percepta (revista da Associação Brasileira de Cognição Musical).
-          </p>
-          <button>Lattes</button>
 
-          <h2 style="margin-top:4rem ;">Tese</h2>
-          <div class="tese__container">
 
-              <div >
-                  <p>
-                      Acesse a tese completa do Professor Danilo Ramos, intitulada *"Fatores emocionais durante uma escuta musical afetam a percepção temporal de músicos e não músicos?"*, defendida em 2008 no Programa de Pós-graduação em Psicologia da USP. A pesquisa é uma valiosa contribuição para a cognição musical, explorando os processos psicológicos na expertise musical.
-                  </p>
-              </div>
-              <div >
+        <div class="grid md:grid-cols-3 gap-8 items-center justify-items-center mt-16">
+            <div class="flex justify-center">
+                <img src="../assets/images/foto_daniloRamos.png" width="300" alt="Foto do Grupo Grume" class="rounded-lg shadow-md">
+            </div>
+            <div class="col-span-2 space-y-4">
+                <h2>Professor Danilo Ramos</h2>
+                <p>
+                    Danilo Ramos é bacharel em piano popular pela UNICAMP, mestre e doutor em psicologia pela USP. Realizou estágio pós-doutoral no campo da cognição musical no Laboratório de Estudos sobre Aprendizagem e Desenvolvimento (LEAD) da Universidade de Borgonha, França, sob a supervisão de Emmanuel Bigand. Possui especialização em psicologia corporal (abordagem reichiana) e em teatro playback. Atualmente, é professor associado do Departamento de Artes da Universidade Federal do Paraná (UFPR), onde ministra disciplinas nas áreas de piano e cognição musical, em cursos de graduação e pós-graduação. Foi coordenador do Programa de Pós-Graduação em Música da UFPR (período: 2013-2015) e presidente do comitê responsável pela implantação do curso de doutorado em música nessa instituição.
+                </p>
+            </div>
+        </div>
 
-                  <p>
-                      "
-                      <span>
-                          Esta pesquisa teve como objetivo verificar o papel das emoções desencadeadas pela música na percepção temporal de músicos e não músicos. Quatro experimentos foram realizados: no Experimento I, músicos e não músicos realizaram tarefas de associações emocionais a trechos musicais de 36 segundos de duração, pertencentes ao repertório erudito ocidental.
-                      </span>
-                      "
-                  </p>
-              </div>
-          </div>
-          <button>Link para a Tese</button>
-      </main>
-      <footer id="footer__container"></footer>
-    <script src="../scripts/index.js" type="module"></script>
+        <div class="grid md:grid-cols-5 gap-8 items-center justify-items-center mt-8">
+            <p class="col-span-3 ">
+                É membro da equipe editorial de importantes periódicos científicos no campo da psicologia da música no Brasil e no exterior, exercendo o cargo de editor consultor da revista Music Perception. Danilo é o fundador e líder do Grupo de Pesquisa Música Expertise (GRUME/UFPR) e coordenador do Laboratório de Estudos sobre a Expertise Pianística (LEPI/UFPR). Seus interesses de pesquisa abrangem a musicalidade humana e a expertise musical, com foco no aprendizado do piano popular brasileiro e na comunicação de emoções entre músico e ouvinte em diferentes contextos. Além disso, ele coordena e desenvolve, juntamente com seus estudantes do GRUME, o projeto PIÁ – “O Pianista-Improvisador-Arranjador”, que oferece ensino gratuito de piano criativo para estudantes de qualquer curso da UFPR e membros da comunidade da região metropolitana de Curitiba.
+            </p>
+            <div class="col-span-2 w-full">
+                <div class="relative w-full aspect-video">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/IRKEBKWyFRU?si=Ed_qJ62wDdLTEOMv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <p class="mt-8  ">
+            Em março de 2025, Danilo Ramos lançou o álbum Memórias praianas, um conjunto de composições próprias para piano solo. Atualmente, estuda piano com Olga Kiun e apresenta-se como pianista e músico/ator de teatro playback. Sua produção artística e prática musical evidenciam a conexão entre a pesquisa acadêmica e a performance, destacando a importância da improvisação, da expressão emocional e do diálogo entre músico e público em suas apresentações e projetos pedagógicos.
+        </p>
+
+        <button class="btn-outline-primary mt-6">Lattes</button>
+
+    </main>
+    <footer id="footer__container"></footer>
+    <script src="../scripts/javaScript/index.js" type="module"></script>
 </body>
+
 </html>
