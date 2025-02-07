@@ -11,7 +11,7 @@ export function createHeader() {
       </a>
     </div>
 
-    <nav >
+    <nav class="hidden md:block">
       <ul class="flex gap-6 font-sans *:hover:underline underline-offset-2 ">
         <li ${isActive("/") ? 'class="text-accent-default"' : ""}>
           <a href="/">Home</a>

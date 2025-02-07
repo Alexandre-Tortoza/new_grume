@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grume | Pesquisa</title>
+  <title>Grume | Ensino e Extenção</title>
 
   <!-- Css Import -->
   <link rel="stylesheet" href="../assets/css/stylesTailwind.css">
@@ -13,14 +13,28 @@
 <body>
   <header id="header__container"></header>
 
-
   <main>
+    <div class="flex justify-center gap-4 flex-wrap">
+      <button class="btn-outline-primary w-48">Disciplinas</button>
+      <button class="btn-outline-primary w-48">Palestras e Vídeos</button>
+      <button class="btn-outline-primary w-48">Dicas de Piano</button>
+    </div>
+    <div class="mt-16" id="contentContainer">
 
+      <a href="#" target="_blank" class=" border border-accent-default rounded-md px-80 py-4">
+        <h3>OA839 - Piano Funcional I</h3>
+        <p class="text-sm my-4">Introdução ao piano como ferramenta de trabalho para músicos, com ou sem experiência anterior com o instrumento</p>
+        <p class="hover:text-accent-default transition-all duration-200">Link</p>
+      </a>
+
+
+    </div>
   </main>
 
   <footer id="footer__container"></footer>
 
   <script src="../scripts/javaScript/index.js" type="module"></script>
+  <script src="../scripts/javaScript/ensinoExtensao/index.js" type="module"></script>
 </body>
 
 </html>

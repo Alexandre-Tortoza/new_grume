@@ -6,17 +6,17 @@ if (!$conexao_db) {
 }
 
 try {
-    $query = "SELECT * FROM equipe";
+    $query = "SELECT * FROM disciplina";
     $result = mysqli_query($conexao_db, $query);
 
     if ($result) {
-        $equipe = [];
+        $disciplina = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            $equipe[] = $row;
+            $disciplina[] = $row;
         }
 
         header('Content-Type: application/json');
-        echo json_encode($equipe);
+        echo json_encode($disciplina);
     } else {
         echo json_encode(["erro" => "Nenhum dado encontrado."]);
     }
