@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grume - Admin</title>
+  <link rel="stylesheet" href="../../assets/css/stylesTailwind.css">
+  <script defer src="../../scripts/javaScript/admin/login.js"></script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center font-sans ">
+
+  <div class="w-full max-w-md ring ring-accent-default shadow-lg rounded-lg p-8 ">
+    <h2 class="text-3xl font-bold text-center text-accent mb-6">Admin</h2>
+
+    <form id="login-form">
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-dark-700">E-mail</label>
+        <input type="email" id="email" name="email" required class="mt-1 w-full p-3 border  rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" placeholder="Digite seu e-mail">
+      </div>
+
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-dark-700">Senha</label>
+        <input type="password" id="password" name="password" required class="mt-1 w-full p-3 border  rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" placeholder="Digite sua senha">
+      </div>
+
+      <button type="submit" class="w-full bg-accent text-white py-3 rounded-md font-semibold hover:bg-accent-dark transition-all duration-200 ring ring-accent-default hover:bg-accent-default">
+        Entrar
+      </button>
+    </form>
+
+    <p id="error-message" class="mt-4 text-center text-red-500 hidden">E-mail ou senha inválidos.</p>
+  </div>
+
+</body>
+
+</html>

@@ -36,7 +36,7 @@ function disciplinas() {
 
       const container = document.getElementById("contentContainer");
       container.innerHTML = `
-  <div class="grid grid-cols-4 gap-8" id="content"></div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="content"></div>
 `;
 
       const content = document.getElementById("content");

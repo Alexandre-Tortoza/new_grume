@@ -39,7 +39,7 @@ function equipe() {
 
       const container = document.getElementById("contentContainer");
       container.innerHTML = `
-  <div class="grid grid-cols-2 gap-8" id="content"></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="content"></div>
 `;
 
       const content = document.getElementById("content");
@@ -104,7 +104,7 @@ function orientacoes() {
       } else {
         document.getElementById("contentContainer").innerHTML = "";
         data.forEach((orientacoes) => {
-          container.innerHTML += ` <div class="grid grid-cols-6 text-center items-center justify-center gap-4 border-b-2 border-accent-700 py-4 
+          container.innerHTML += ` <div class="flex flex-col align-middle md:grid grid-cols-1 md:grid-cols-6 text-center items-center justify-center gap-4 border-b-2 border-accent-700 py-4 
             last:border-0">
                 <div class="flex justify-center items-center">
                     <h3>${orientacoes.tipo}</h3>
@@ -148,7 +148,7 @@ function publicacoes() {
       } else {
         document.getElementById("contentContainer").innerHTML = "";
         data.forEach((publicacoes) => {
-          container.innerHTML += `  <div class="grid grid-cols-6 text-center items-center justify-center gap-4 border-b-2 border-accent-700 py-4 
+          container.innerHTML += `  <div class="flex flex-col align-middle md:grid grid-cols-1 md:grid-cols-6 text-center items-center justify-center gap-4 border-b-2 border-accent-700 py-4
             last:border-0">
                 <div class="flex justify-center items-center">
                     <h3>${publicacoes.tipo}</h3>

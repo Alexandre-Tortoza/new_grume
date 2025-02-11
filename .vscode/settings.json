@@ -1,3 +1,12 @@
 {
-  "cSpell.words": ["Bigand", "conexao", "Hodie", "ufpr"]
+  "cSpell.words": [
+    "accent",
+    "Bigand",
+    "conexao",
+    "Hodie",
+    "music",
+    "rounded",
+    "ufpr"
+  ],
+  "css.lint.unknownAtRules": "ignore"
 }
