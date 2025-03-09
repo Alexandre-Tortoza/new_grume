@@ -300,26 +300,26 @@ function toggleListar() {
 
 function toggleAdicionar() {
   main.innerHTML = `
-    <form
+      <form
     class="mx-auto p-6 shadow-md space-y-2 ring ring-accent-default/30 text-sm rounded-md grid grid-cols-2 gap-x-8"
   >
     <div>
-      <label for="nome" class="block mb-2 text-dark-700">Nome</label>
+      <label for="Categoria" class="block mb-2 text-dark-700">Categoria</label>
       <input
-        id="nome"
-        name="nome"
+        id="Categoria"
+        name="Categoria"
         type="text"
-        placeholder="Seu nome"
+        placeholder="Qual a Categoria ?"
         class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
       />
     </div>
     <div>
-      <label for="curriculo" class="block mb-2 text-dark-700">Currículo</label>
+      <label for="Autor" class="block mb-2 text-dark-700">Autor</label>
       <input
-        id="curriculo"
-        name="curriculo"
+        id="Autor"
+        name="Autor"
         type="text"
-        placeholder="Link para o Currículo"
+        placeholder="Qual o Autor ?"
         class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
       />
     </div>
@@ -334,16 +334,6 @@ function toggleAdicionar() {
       ></textarea>
     </div>
     <div>
-      <label for="email" class="block mb-2 text-dark-700">Email</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="Seu email"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div>
       <label for="foto" class="block mb-2 text-dark-700">Foto de Perfil</label>
       <input
         id="foto"
@@ -353,19 +343,10 @@ function toggleAdicionar() {
       />
     </div>
     <div>
-      <label for="dataInicio" class="block mb-2 text-dark-700">Data de Início</label>
+      <label for="data" class="block mb-2 text-dark-700">Data de publicação</label>
       <input
-        id="dataInicio"
-        name="dataInicio"
-        type="date"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div>
-      <label for="dataFim" class="block mb-2 text-dark-700">Data de Fim</label>
-      <input
-        id="dataFim"
-        name="dataFim"
+        id="data"
+        name="data"
         type="date"
         class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
       />

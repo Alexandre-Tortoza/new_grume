@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Grume</title>
+  <script defer src="../../scripts/javaScript/admin/verifyToken.js"></script>
+  <link rel="stylesheet" href="../../assets/css/stylesTailwind.css">
+</head>
+
+<body>
+  <header class="flex w-full  justify-between py-8 border-b border-dark-700/80 mb-16 shadow">
+    <h1>Admin Grume</h1>
+    <nav>
+      <ul class="flex gap-8 font-sans ">
+        <li> <a href="equipe.html"> Equipe </a></li>
+        <li> <a href="./publicacoes.html"> Publicações </a></li>
+        <li> <a href="./orientacoes.html"> Orientações </a></li>
+        <li> <a class="text-accent-default" href="javascript:void(0)"> Disciplinas </a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="flex justify-center gap-4 flex-wrap mb-8">
+    <button class="btn-outline-primary w-40">Adicionar</button>
+    <button class="btn-outline-primary w-40">Listar</button>
+  </div>
+
+  <main id="main__content" class="font-sans mb-16">
+  </main>
+  <script src="../../scripts/javaScript/admin/disciplinas.js" type="module"></script>
+
+
+</body>
+
+</html>

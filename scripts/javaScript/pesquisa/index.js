@@ -50,7 +50,7 @@ function equipe() {
       } else {
         data.forEach((membro) => {
           content.innerHTML += `
-          <div class="rounded-md border border-accent-default p-4 max-w-3xl mx-auto hover:scale-105 hover:border-accent-600 transition-all duration-150 ease-in flex flex-col justify-between">
+          <div class="rounded-md border w-full border-accent-default p-4 max-w-3xl mx-auto hover:scale-[101%] hover:border-accent-600 transition-all duration-150 ease-in flex flex-col justify-between">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <img src="../assets/membros/${membro.imagem}" alt="Imagem do ${membro.nome}" class="w-full sm:w-auto rounded-md object-cover max-md:m-auto size-48">
 
