@@ -10,29 +10,10 @@ fetch("../../scripts/php/pesquisa/get_equipe.php")
   })
   .then((data) => {
     console.log(data);
+  })
+  .catch((error) => {
+    console.error("Erro no fetch inicial:", error);
   });
-
-const buttons = document.querySelectorAll(".btn-outline-primary");
-
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    buttons.forEach((btn) => btn.classList.remove("btn-active"));
-    button.classList.add("btn-active");
-
-    console.log(button.innerText.trim().toLowerCase());
-    switch (button.innerText.trim().toLowerCase()) {
-      case "adicionar":
-        toggleAdicionar();
-        break;
-      case "listar":
-        toggleListar();
-        break;
-      default:
-        console.error("Nenhuma função associada a esse botão.");
-        break;
-    }
-  });
-});
 
 function toggleListar() {
   fetch("../../scripts/php/pesquisa/get_equipe.php")
@@ -60,36 +41,30 @@ function toggleListar() {
                 <th class="px-4 py-2 border border-dark-600 text-center">Ações</th>
               </tr>
             </thead>
-            <tbody id="tableBody">
-             
-            </tbody>
+            <tbody id="tableBody"></tbody>
           </table>
-          `;
+        `;
+
         const tableBody = document.getElementById("tableBody");
         data.forEach((membro) => {
           tableBody.innerHTML += `
             <tr class="odd:bg-dark-950/40 *:text-dark-300">
-              <td class="px-4 py-2 text-base border border-dark-800">
-                ${membro.nome}
-              </td>
-              <td class="px-4 py-2 text-sm border border-dark-800">
-                ${
-                  membro.descricao.length < 60
-                    ? membro.descricao
-                    : `${membro.descricao.slice(0, 60)}...`
-                }
-              </td>
-              <td class="px-4 py-2 border text-base border-dark-800">
-                ${membro.email}
-              </td>
-              <td class="px-4 py-2 border border-dark-800 ">
-
+              <td class="px-4 py-2 text-base border border-dark-800">${
+                membro.nome
+              }</td>
+              <td class="px-4 py-2 text-sm border border-dark-800">${
+                membro.descricao.length < 60
+                  ? membro.descricao
+                  : `${membro.descricao.slice(0, 60)}...`
+              }</td>
+              <td class="px-4 py-2 border text-base border-dark-800">${
+                membro.email
+              }</td>
+              <td class="px-4 py-2 border border-dark-800">
                 <div class="flex gap-2 justify-center">
-                           
-                <svg 
-                ${JSON.stringify(membro)}
-                    xmlns="http://www.w3.org/2000/svg" 
-                    data-editData='${JSON.stringify(membro)}'
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-edit-data='${JSON.stringify(membro)}'
                     class="hover:stroke-accent-default duration-200 transition-all feather feather-edit" 
                     width="24" height="24" viewBox="0 0 24 24" fill="none" 
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -97,8 +72,8 @@ function toggleListar() {
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                   </svg>
                   <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    data-deleteId="${membro.id}"
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-delete-id="${membro.id}"
                     class="hover:stroke-accent-default duration-200 transition-all feather feather-trash-2" 
                     width="24" height="24" viewBox="0 0 24 24" fill="none" 
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -107,145 +82,101 @@ function toggleListar() {
                     <line x1="10" y1="11" x2="10" y2="17"/>
                     <line x1="14" y1="11" x2="14" y2="17"/>
                   </svg>
-
                 </div>
-
               </td>
             </tr>
           `;
         });
-        const deleteButtons = document.querySelectorAll("svg[data-deleteId]");
-        deleteButtons.forEach(async (button) => {
-          button.addEventListener("click", async () => {
-            const id = button.dataset.deleteid;
+
+        tableBody.addEventListener("click", (event) => {
+          console.log("Elemento clicado:", event.target);
+
+          const deleteButton = event.target.closest("svg[data-delete-id]");
+          console.log("Delete button encontrado:", deleteButton);
+
+          if (deleteButton) {
+            console.log("Delete clicked");
+            const id = deleteButton.dataset.deleteId;
             console.log("Valor de id:", id);
             if (confirm("Você tem certeza que deseja deletar este membro?")) {
-              try {
-                const response = await fetch(
-                  "../../scripts/php/admin/deleteMembroId.php",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id: id }),
+              fetch("../../scripts/php/admin/deleteMembroId.php", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id: id }),
+              })
+                .then((response) => {
+                  if (response.ok) {
+                    alert(`Membro com ID ${id} deletado com sucesso.`);
+                    window.location.reload();
+                  } else {
+                    alert("Erro ao deletar o membro.");
                   }
-                );
-
-                console.log(response);
-
-                if (response.ok) {
-                  alert(`Membro com ID ${id} deletado com sucesso.`);
-                  window.location.reload();
-                } else {
-                  alert("Erro ao deletar o membro.");
-                }
-              } catch (error) {
-                console.error("Erro na requisição de deleção:", error);
-                alert("Ocorreu um erro ao tentar deletar o membro.");
-              }
+                })
+                .catch((error) => {
+                  console.error("Erro na requisição de deleção:", error);
+                  alert("Ocorreu um erro ao tentar deletar o membro.");
+                });
             } else {
               alert("Ação de deleção cancelada.");
             }
-          });
-        });
+            return;
+          }
 
-        const editButtons = document.querySelectorAll("svg[data-editData]");
-        editButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const data = JSON.parse(button.dataset.editdata);
+          const editButton = event.target.closest("svg[data-edit-data]");
+          console.log("Edit button encontrado:", editButton);
+
+          if (editButton) {
+            console.log("Edit clicked");
+            const data = JSON.parse(editButton.dataset.editData);
 
             const modalTemplate = `
               <div class="fixed inset-0 bg-dark-950/80 flex items-center justify-center" id="modal">
                 <div class="bg-dark-900 max-w-[80vw] max-h-[80vh] p-4 rounded-md ring ring-dark-600 shadow-lg overflow-auto">
                   <div class="flex justify-between items-center py-2 border-b mb-4 border-dark-600">
                     <h3 class="p-4">Editar</h3>
-                    <span id="close-modal" class="hover:scale-125 transition-all duration-500 p-4 cursor-pointer">
-                      X
-                    </span>
+                    <span id="close-modal" class="hover:scale-125 transition-all duration-500 p-4 cursor-pointer">X</span>
                   </div>
-                  <!-- Formulário de edição -->
                   <form id="edit-member-form" class="mx-auto p-6 space-y-2 text-sm grid grid-cols-2 gap-x-8">
-                    <!-- Campo oculto para o ID -->
                     <input type="hidden" name="id" value="${data.id}" />
                     <div>
                       <label for="nome" class="block mb-2 text-dark-700">Nome</label>
-                      <input
-                        id="nome"
-                        name="nome"
-                        type="text"
-                        placeholder="Seu nome"
-                        value="${data.nome}"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
+                      <input id="nome" name="nome" type="text" placeholder="Seu nome" value="${data.nome}"
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
                     <div>
                       <label for="curriculo" class="block mb-2 text-dark-700">Currículo</label>
-                      <input
-                        id="curriculo"
-                        name="curriculo"
-                        type="text"
-                        placeholder="Link para o Currículo"
-                        value="${data.curriculo}"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
+                      <input id="curriculo" name="curriculo" type="text" placeholder="Link para o Currículo" value="${data.curriculo}"
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
                     <div class="col-span-2">
                       <label for="descricao" class="block mb-2 text-dark-700">Descrição</label>
-                      <textarea
-                        id="descricao"
-                        name="descricao"
-                        placeholder="Digite uma descrição"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                        rows="4"
-                      >${data.descricao}</textarea>
+                      <textarea id="descricao" name="descricao" placeholder="Digite uma descrição" class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" rows="4">${data.descricao}</textarea>
                     </div>
                     <div>
                       <label for="email" class="block mb-2 text-dark-700">Email</label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="Seu email"
-                        value="${data.email}"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
+                      <input id="email" name="email" type="email" placeholder="Seu email" value="${data.email}"
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
                     <div>
                       <label for="foto" class="block mb-2 text-dark-700">Foto de Perfil</label>
-                      <input
-                        id="foto"
-                        name="foto"
-                        type="file"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
+                      <input id="foto" name="foto" type="file"
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                       <img src="${data.imagem}" alt="Foto atual" class="w-16 h-16 object-cover mt-2 rounded-md" />
                     </div>
                     <div>
                       <label for="dataInicio" class="block mb-2 text-dark-700">Data de Início</label>
-                      <input
-                        id="dataInicio"
-                        name="dataInicio"
-                        type="date"
-                        value="${data.data_inicio}"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
+                      <input id="dataInicio" name="dataInicio" type="date" value="${data.data_inicio}"
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
                     <div>
                       <label for="dataFim" class="block mb-2 text-dark-700">Data de Fim</label>
-                      <input
-                        id="dataFim"
-                        name="dataFim"
-                        type="date"
-                        value="${data.data_fim}"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-                      />
+                      <input id="dataFim" name="dataFim" type="date" value="${data.data_fim}"
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
                     <div class="col-span-2">
-                      <button
-                        type="submit"
-                        class="w-full py-2 px-4 bg-accent-default text-white rounded-md hover:bg-accent-700 transition-colors duration-150 mt-8"
-                      >
+                      <button type="submit" class="w-full py-2 px-4 bg-accent-default text-white rounded-md hover:bg-accent-700 transition-colors duration-150 mt-8">
                         Enviar
                       </button>
                     </div>
@@ -258,10 +189,7 @@ function toggleListar() {
 
             const closeModal = document.getElementById("close-modal");
             closeModal.addEventListener("click", () => {
-              const modal = document.getElementById("modal");
-              if (modal) {
-                modal.remove();
-              }
+              document.getElementById("modal")?.remove();
             });
 
             const editForm = document.getElementById("edit-member-form");
@@ -282,7 +210,6 @@ function toggleListar() {
                 if (response.ok) {
                   alert("Membro editado com sucesso!");
                   document.getElementById("modal").remove();
-
                   window.location.reload();
                 } else {
                   alert("Erro ao editar o membro: " + result.error);
@@ -292,141 +219,113 @@ function toggleListar() {
                 alert("Ocorreu um erro ao editar o membro.");
               }
             });
-          });
+          }
         });
       }
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
     });
 }
 
 function toggleAdicionar() {
   main.innerHTML = `
-    <form
-    class="mx-auto p-6 shadow-md space-y-2 ring ring-accent-default/30 text-sm rounded-md grid grid-cols-2 gap-x-8"
-  >
-    <div>
-      <label for="nome" class="block mb-2 text-dark-700">Nome</label>
-      <input
-        id="nome"
-        name="nome"
-        type="text"
-        placeholder="Seu nome"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div>
-      <label for="curriculo" class="block mb-2 text-dark-700">Currículo</label>
-      <input
-        id="curriculo"
-        name="curriculo"
-        type="text"
-        placeholder="Link para o Currículo"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div class="col-span-2">
-      <label for="descricao" class="block mb-2 text-dark-700">Descrição</label>
-      <textarea
-        id="descricao"
-        name="descricao"
-        placeholder="Digite uma descrição"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-        rows="4"
-      ></textarea>
-    </div>
-    <div>
-      <label for="email" class="block mb-2 text-dark-700">Email</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="Seu email"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div>
-      <label for="foto" class="block mb-2 text-dark-700">Foto de Perfil</label>
-      <input
-        id="foto"
-        name="foto"
-        type="file"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div>
-      <label for="dataInicio" class="block mb-2 text-dark-700">Data de Início</label>
-      <input
-        id="dataInicio"
-        name="dataInicio"
-        type="date"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div>
-      <label for="dataFim" class="block mb-2 text-dark-700">Data de Fim</label>
-      <input
-        id="dataFim"
-        name="dataFim"
-        type="date"
-        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
-      />
-    </div>
-    <div class="col-span-2">
-      <button
-        type="submit"
-        class="w-full py-2 px-4 bg-accent-default text-white rounded-md hover:bg-accent-700 transition-colors duration-150 mt-8"
-      >
-        Enviar
-      </button>
-    </div>
-  </form>
+    <form class="mx-auto p-6 shadow-md space-y-2 ring ring-accent-default/30 text-sm rounded-md grid grid-cols-2 gap-x-8">
+      <div>
+        <label for="nome" class="block mb-2 text-dark-700">Nome</label>
+        <input id="nome" name="nome" type="text" placeholder="Seu nome"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
+      <div>
+        <label for="curriculo" class="block mb-2 text-dark-700">Currículo</label>
+        <input id="curriculo" name="curriculo" type="text" placeholder="Link para o Currículo"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
+      <div class="col-span-2">
+        <label for="descricao" class="block mb-2 text-dark-700">Descrição</label>
+        <textarea id="descricao" name="descricao" placeholder="Digite uma descrição"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" rows="4"></textarea>
+      </div>
+      <div>
+        <label for="email" class="block mb-2 text-dark-700">Email</label>
+        <input id="email" name="email" type="email" placeholder="Seu email"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
+      <div>
+        <label for="foto" class="block mb-2 text-dark-700">Foto de Perfil</label>
+        <input id="foto" name="foto" type="file"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
+      <div>
+        <label for="dataInicio" class="block mb-2 text-dark-700">Data de Início</label>
+        <input id="dataInicio" name="dataInicio" type="date"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
+      <div>
+        <label for="dataFim" class="block mb-2 text-dark-700">Data de Fim</label>
+        <input id="dataFim" name="dataFim" type="date"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
+      <div class="col-span-2">
+        <button type="submit" class="w-full py-2 px-4 bg-accent-default text-white rounded-md hover:bg-accent-700 transition-colors duration-150 mt-8">
+          Enviar
+        </button>
+      </div>
+    </form>
+  `;
 
-    `;
+  const form = document.querySelector("form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
+    try {
+      const response = await fetch("../../scripts/php/admin/postMembros.php", {
+        method: "POST",
+        body: formData,
+      });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
+      const result = await response.json();
 
-      try {
-        const response = await fetch(
-          "../../scripts/php/admin/postMembros.php",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
-
-        // Obtém o resultado da resposta em JSON
-        const result = await response.json();
-
-        // Se a resposta não for ok, exibe os erros via alert e interrompe a execução
-        if (!response.ok) {
-          let errorMessage = "";
-
-          // Se houver um array de erros, junta as mensagens; caso contrário, verifica a propriedade "error"
-          if (result.errors && Array.isArray(result.errors)) {
-            errorMessage = result.errors.join("\n");
-          } else if (result.error) {
-            errorMessage = result.error;
-          } else {
-            errorMessage = "Erro desconhecido.";
-          }
-
-          alert("Erro na requisição:\n" + errorMessage);
-          return;
-        }
-
-        console.log("Sucesso:", result);
-        alert("Formulário enviado com sucesso!");
-        window.location.reload();
-      } catch (error) {
-        console.error("Erro ao enviar o formulário:", error);
-        alert("Ocorreu um erro ao enviar o formulário!\n" + error.message);
+      if (!response.ok) {
+        let errorMessage =
+          result.errors?.join("\n") || result.error || "Erro desconhecido.";
+        alert("Erro na requisição:\n" + errorMessage);
+        return;
       }
-    });
+
+      console.log("Sucesso:", result);
+      alert("Formulário enviado com sucesso!");
+      window.location.reload();
+    } catch (error) {
+      console.error("Erro ao enviar o formulário:", error);
+      alert("Ocorreu um erro ao enviar o formulário!\n" + error.message);
+    }
   });
 }
 
-buttons[0].click();
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".btn-outline-primary");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((btn) => btn.classList.remove("btn-active"));
+      button.classList.add("btn-active");
+
+      console.log(button.innerText.trim().toLowerCase());
+      switch (button.innerText.trim().toLowerCase()) {
+        case "adicionar":
+          toggleAdicionar();
+          break;
+        case "listar":
+          toggleListar();
+          break;
+        default:
+          console.error("Nenhuma função associada a esse botão.");
+          break;
+      }
+    });
+  });
+
+  buttons[0]?.click();
+});
