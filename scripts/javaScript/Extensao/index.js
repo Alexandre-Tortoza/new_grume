@@ -6,14 +6,11 @@ buttons.forEach((button) => {
     button.classList.add("btn-active");
 
     switch (button.innerText.trim().toLowerCase()) {
-      case "palestras e vídeos":
-        palestrasVideos();
+      case "projetos de extensão":
+        projetosdExtensao();
         break;
       case "dicas de piano":
         dicasPiano();
-        break;
-      case "disciplinas":
-        disciplinas();
         break;
       default:
         console.error("Nenhuma função associada a esse botão.");
@@ -22,92 +19,23 @@ buttons.forEach((button) => {
   });
 });
 
-function disciplinas() {
-  fetch("../scripts/php/ensinoExtensao/get_disciplinas.php")
-    .then((response) => {
-      if (!response.ok) {
-        document.getElementById("contentContainer").innerHTML = "";
-        throw new Error("Erro ao buscar os dados");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Dados recebidos:", data);
+function projetosdExtensao() {
+  document.getElementById("contentContainer").innerHTML = `
+    <div>
+        <div class="grid md:grid-cols-1 gap-4 items-center justify-items-center">
+          <div class=" md:text-left">
+            <h2>Projetos de Extenção</h2>
+            <p>
+              Quer saber mais sobre nossos projetos incríveis? Estamos trabalhando em iniciativas que fazem a diferença, e gostaríamos de compartilhar tudo isso com você! Clique no link abaixo para explorar detalhes, descobrir como participamos e se inspirar com o que estamos construindo juntos. Venha fazer parte dessa jornada!
+            </p>
+          </div>
+          <div>
+            <a href="https://drive.google.com/drive/u/1/folders/1ygOmb6Mgw-ItUBc431krZaHdPYmTZmp2" target="_blank" class="btn-outline-primary w-48">Explorar</a>
+          </div>
+        </div>
+      </div>
 
-      const container = document.getElementById("contentContainer");
-      container.innerHTML = `
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="content"></div>
 `;
-
-      const content = document.getElementById("content");
-
-      if (data.length === 0) {
-        content.innerHTML =
-          "<p class='text-gray-500'>Nenhuma disciplina encontrado.</p>";
-      } else {
-        data.forEach((disciplina) => {
-          content.innerHTML += `
-            <a href="${disciplina.link}" target="_blank" 
-            class="group text-center hover:scale-105 transition-all duration-200 border border-accent-default hover:border-accent-700 rounded-md px-8 py-4">
-            
-            <h3>${disciplina.nome}</h3>
-            
-            <p class="text-sm my-6 text-justify">${disciplina.descricao}</p>
-            
-            <p class="transition-all duration-200 group-hover:text-accent-default">Link</p>
-          </a>
-
-          `;
-        });
-      }
-    })
-    .catch((error) => {
-      console.error("Erro:", error);
-    });
-}
-
-function orientacoes() {
-  fetch("../scripts/php/ensinoExtensao/get_disciplinas.php")
-    .then((response) => {
-      if (!response.ok) {
-        document.getElementById("contentContainer").innerHTML = "";
-        throw new Error("Erro ao buscar os dados");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log("Dados recebidos:", data);
-
-      const container = document.getElementById("contentContainer");
-
-      if (data.length === 0) {
-        container.innerHTML =
-          "<p class='text-gray-500'>Nenhuma pesquisa encontrado.</p>";
-      } else {
-        document.getElementById("contentContainer").innerHTML = "";
-        data.forEach((orientacoes) => {
-          container.innerHTML += ` <div class="grid grid-cols-6 text-center items-center justify-center gap-4 border-b-2 border-accent-700 py-4 
-            last:border-0">
-                <div class="flex justify-center items-center">
-                    <h3>${orientacoes.tipo}</h3>
-                </div>
-                <div class="flex flex-col justify-center items-center">
-                    <h3>${orientacoes.autor}</h3>
-                    <h4 class="text-sm">${orientacoes.ano}</h4>
-                </div>
-                <div class="col-span-3 flex justify-center items-center font-base">
-                    <p class="text-sm">${orientacoes.descricao}</p>
-                </div>
-                <div class="flex justify-center items-center">
-                    <a href="../assets/orientacoes/${orientacoes.download}" download class="text-accent-default hover:underline">Download</a>
-                </div>
-            </div>`;
-        });
-      }
-    })
-    .catch((error) => {
-      console.error("Erro:", error);
-    });
 }
 
 function dicasPiano() {
