@@ -110,14 +110,17 @@ function toggleListar() {
             if (
               confirm("Você tem certeza que deseja deletar esta publicação?")
             ) {
-              fetch("../../scripts/php/admin/deletePublicacao.php", {
-                // Ajuste o endpoint
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ id: id }),
-              })
+              fetch(
+                "../../scripts/php/admin/publicacoes/delete_publicacoes.php",
+                {
+                  // Ajuste o endpoint
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ id: id }),
+                }
+              )
                 .then((response) => {
                   if (response.ok) {
                     alert(`Publicação com ID ${id} deletada com sucesso.`);
@@ -154,8 +157,17 @@ function toggleListar() {
                     <input type="hidden" name="id" value="${data.id}" />
                     <div>
                       <label for="tipo" class="block mb-2 text-dark-700">Tipo</label>
-                      <input id="tipo" name="tipo" type="text" placeholder="Tipo da publicação" value="${data.tipo}"
-                        class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+                      <select 
+                        id="tipo" 
+                        name="tipo" 
+                        class="w-full px-3 py-2 border border-dark-300 rounded-md bg-dark-900 text-dark-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 appearance-none"
+                      >
+                        <option value="Livro">Livro</option>
+                        <option value="Capítulo de livro">Capítulo de livro</option>
+                        <option value="Artigo científico">Artigo científico</option>
+                        <option value="Resumo de trabalhos">Resumo de trabalhos</option>
+                        <option value="Outros">Outros</option>
+                      </select>
                     </div>
                     <div>
                       <label for="autor" class="block mb-2 text-dark-700">Autor</label>
@@ -168,14 +180,15 @@ function toggleListar() {
                         class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
                     <div class="col-span-2">
-                      <label for="descricao" class="block mb-2 text-dark-700">Descrição</label>
-                      <textarea id="descricao" name="descricao" placeholder="Descrição da publicação" class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" rows="4">${data.descricao}</textarea>
-                    </div>
-                    <div class="col-span-2">
                       <label for="download" class="block mb-2 text-dark-700">Link para Download</label>
                       <input id="download" name="download" type="url" placeholder="URL do download" value="${data.download}"
                         class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
                     </div>
+                    <div class="col-span-2">
+                      <label for="descricao" class="block mb-2 text-dark-700">Descrição</label>
+                      <textarea id="descricao" name="descricao" placeholder="Descrição da publicação" class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" rows="4">${data.descricao}</textarea>
+                    </div>
+                    
                     <div class="col-span-2">
                       <button type="submit" class="w-full py-2 px-4 bg-accent-default text-white rounded-md hover:bg-accent-700 transition-colors duration-150 mt-8">
                         Enviar
@@ -200,7 +213,7 @@ function toggleListar() {
 
               try {
                 const response = await fetch(
-                  "../../scripts/php/admin/putPublicacao.php",
+                  "../../scripts/php/admin/publicacoes/put_publicacoes.php",
                   {
                     // Ajuste o endpoint
                     method: "POST",
@@ -236,8 +249,17 @@ function toggleAdicionar() {
     <form class="mx-auto p-6 shadow-md space-y-2 ring ring-accent-default/30 text-sm rounded-md grid grid-cols-2 gap-x-8">
       <div>
         <label for="tipo" class="block mb-2 text-dark-700">Tipo</label>
-        <input id="tipo" name="tipo" type="text" placeholder="Tipo da publicação"
-          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+        <select 
+          id="tipo" 
+          name="tipo" 
+          class="w-full px-3 py-2 border border-dark-300 rounded-md bg-dark-900 text-dark-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 appearance-none"
+        >
+          <option value="Livro">Livro</option>
+          <option value="Capítulo de livro">Capítulo de livro</option>
+          <option value="Artigo científico">Artigo científico</option>
+          <option value="Resumo de trabalhos">Resumo de trabalhos</option>
+          <option value="Outros">Outros</option>
+        </select>
       </div>
       <div>
         <label for="autor" class="block mb-2 text-dark-700">Autor</label>
@@ -249,16 +271,17 @@ function toggleAdicionar() {
         <input id="ano" name="ano" type="text" placeholder="Ano"
           class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
       </div>
+       <div >
+        <label for="download" class="block mb-2 text-dark-700">Link para Download</label>
+        <input id="download" name="download" type="url" placeholder="URL do download"
+          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
+      </div>
       <div class="col-span-2">
         <label for="descricao" class="block mb-2 text-dark-700">Descrição</label>
         <textarea id="descricao" name="descricao" placeholder="Descrição da publicação"
           class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" rows="4"></textarea>
       </div>
-      <div class="col-span-2">
-        <label for="download" class="block mb-2 text-dark-700">Link para Download</label>
-        <input id="download" name="download" type="url" placeholder="URL do download"
-          class="w-full px-3 py-2 border border-dark-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-200" />
-      </div>
+     
       <div class="col-span-2">
         <button type="submit" class="w-full py-2 px-4 bg-accent-default text-white rounded-md hover:bg-accent-700 transition-colors duration-150 mt-8">
           Enviar
@@ -274,7 +297,7 @@ function toggleAdicionar() {
 
     try {
       const response = await fetch(
-        "../../scripts/php/admin/postPublicacao.php",
+        "../../scripts/php/admin/publicacoes/post_publicacoes.php",
         {
           // Ajuste o endpoint
           method: "POST",

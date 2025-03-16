@@ -49,11 +49,18 @@ export function createHeader() {
               <a href="/pages/artistico.html">Artístico</a>
             </li>
             <li ${
-              isActive("/pages/ensino-e-extensao.html")
+              isActive("/pages/ensino.html")
                 ? 'class="text-accent-default"'
                 : ""
             }>
-              <a href="/pages/ensino-e-extensao.html">Ensino e Extensão</a>
+              <a href="/pages/ensino.html">Ensino</a>
+            </li>
+            <li ${
+              isActive("/pages/extensao.html")
+                ? 'class="text-accent-default"'
+                : ""
+            }>
+              <a href="/pages/extensao.html">Extensão</a>
             </li>
             <li ${
               isActive("/pages/infraestrutura.html")
@@ -108,11 +115,18 @@ export function createHeader() {
                 <a href="/pages/artistico.html">Artístico</a>
               </li>
               <li ${
-                isActive("/pages/ensino-e-extensao.html")
+                isActive("/pages/ensino.html")
                   ? 'class="text-accent-default"'
                   : ""
               }>
-                <a href="/pages/ensino-e-extensao.html">Ensino e Extensão</a>
+                <a href="/pages/ensino.html">Ensino</a>
+              </li>
+              <li ${
+                isActive("/pages/extensao.html")
+                  ? 'class="text-accent-default"'
+                  : ""
+              }>
+                <a href="/pages/extensao.html">Extensão</a>
               </li>
               <li ${
                 isActive("/pages/infraestrutura.html")

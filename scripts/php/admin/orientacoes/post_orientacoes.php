@@ -13,32 +13,54 @@ $tipo      = isset($_POST['tipo'])      ? trim($_POST['tipo'])      : '';
 $autor     = isset($_POST['autor'])     ? trim($_POST['autor'])     : '';
 $ano       = isset($_POST['ano'])       ? trim($_POST['ano'])       : '';
 $descricao = isset($_POST['descricao']) ? trim($_POST['descricao']) : '';
-$download  = isset($_POST['download'])  ? trim($_POST['download'])  : null; // Campo opcional
 
 $errors = [];
 
-// Validações dos campos obrigatórios
-if (empty($tipo)) {
+// Validações dos campos de texto
+if ($tipo === '') {
     $errors[] = 'O tipo é obrigatório.';
 }
 
-if (empty($autor)) {
+if ($autor === '') {
     $errors[] = 'O autor é obrigatório.';
 }
 
-if (empty($ano)) {
+if ($ano === '') {
     $errors[] = 'O ano é obrigatório.';
 } elseif (!is_numeric($ano) || $ano < 1900 || $ano > date('Y')) {
     $errors[] = 'O ano deve ser um número válido entre 1900 e ' . date('Y') . '.';
 }
 
-if (empty($descricao)) {
+if ($descricao === '') {
     $errors[] = 'A descrição é obrigatória.';
 }
 
-// Validação opcional para o campo download (se fornecido)
-if (!empty($download) && !filter_var($download, FILTER_VALIDATE_URL)) {
-    $errors[] = 'O link de download deve ser uma URL válida.';
+$downloadPath = null;
+$uploadDir = '../../../../assets/membros';
+
+// Validação para o campo download (arquivo opcional)
+if (isset($_FILES['download']) && $_FILES['download']['error'] === UPLOAD_ERR_OK) {
+    $fileName  = basename($_FILES['download']['name']);
+    $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    
+    $allowedExtensions = ['pdf', 'doc', 'docx', 'txt']; // Ajuste conforme necessário
+    if (!in_array($extension, $allowedExtensions)) {
+        $errors[] = 'Formato de arquivo não permitido. Use PDF, DOC, DOCX ou TXT.';
+    } elseif ($_FILES['download']['size'] > 5 * 1024 * 1024) { // Limite de 5MB
+        $errors[] = 'O arquivo é muito grande (máximo 5MB).';
+    } else {
+        if (!is_dir($uploadDir) && !mkdir($uploadDir, 0777, true)) {
+            $errors[] = "Erro ao criar o diretório: $uploadDir";
+        }
+        $fileUniqueName = uniqid() . '.' . $extension;
+        $targetFile = $uploadDir . '/' . $fileUniqueName;
+        
+        if (move_uploaded_file($_FILES['download']['tmp_name'], $targetFile)) {
+            $downloadPath = $targetFile;
+        } else {
+            $errors[] = 'Falha ao fazer o upload do arquivo.';
+        }
+    }
 }
 
 if (!empty($errors)) {
@@ -58,17 +80,16 @@ if (!$conexao_db) {
 
 try {
     /*
-        Tabela "publicacoes" com os campos:
+        Tabela "orientacoes" com os campos:
         "id" (auto-increment), "tipo", "autor", "ano", "descricao", "download"
     */
     
-    $stmt = $conexao_db->prepare("INSERT INTO publicacoes (tipo, autor, ano, descricao, download) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $conexao_db->prepare("INSERT INTO orientacoes (tipo, autor, ano, descricao, download) VALUES (?, ?, ?, ?, ?)");
     if (!$stmt) {
         throw new Exception("Erro na preparação da query: " . $conexao_db->error);
     }
     
-    // Bind dos parâmetros: "s" para string, "i" para inteiro, e null para download opcional
-    $stmt->bind_param("ssiss", $tipo, $autor, $ano, $descricao, $download);
+    $stmt->bind_param("ssiss", $tipo, $autor, $ano, $descricao, $downloadPath);
     
     if (!$stmt->execute()) {
         throw new Exception("Erro ao inserir dados: " . $stmt->error);
@@ -78,14 +99,14 @@ try {
     
     echo json_encode([
         'success' => true,
-        'message' => 'Publicação inserida com sucesso!',
+        'message' => 'Orientação inserida com sucesso!',
         'data'    => [
             'id'         => $lastInsertId,
             'tipo'       => $tipo,
             'autor'      => $autor,
             'ano'        => $ano,
             'descricao'  => $descricao,
-            'download'   => $download
+            'download'   => $downloadPath
         ]
     ]);
     
@@ -93,6 +114,10 @@ try {
     $conexao_db->close();
     
 } catch (Exception $e) {
+    // Se houve erro após upload, tenta remover o arquivo para evitar lixo
+    if ($downloadPath && file_exists($downloadPath)) {
+        unlink($downloadPath);
+    }
     http_response_code(500);
     echo json_encode(["error" => "Erro ao inserir dados: " . $e->getMessage()]);
     exit;

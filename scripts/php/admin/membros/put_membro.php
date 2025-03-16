@@ -1,5 +1,5 @@
 <?php
-include('../config/dbConnection.php');
+include('../../config/dbConnection.php');
 header('Content-Type: application/json');
 
 // Verifica se o método é POST
@@ -48,7 +48,7 @@ if (empty($dataFim)) {
 }
 
 // Diretório de upload e valor padrão para a imagem (imagem atual)
-$uploadDir = '../../../assets/membros';
+$uploadDir = '../../../../assets/membros';
 $fotoPath = $imagemAtual;
 
 // Processa o upload de uma nova foto, se fornecida

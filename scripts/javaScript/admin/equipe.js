@@ -99,7 +99,7 @@ function toggleListar() {
             const id = deleteButton.dataset.deleteId;
             console.log("Valor de id:", id);
             if (confirm("Você tem certeza que deseja deletar este membro?")) {
-              fetch("../../scripts/php/admin/deleteMembroId.php", {
+              fetch("../../scripts/php/admin/membros/delete_membro.php", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -199,7 +199,7 @@ function toggleListar() {
 
               try {
                 const response = await fetch(
-                  "../../scripts/php/admin/putMembro.php",
+                  "../../scripts/php/admin/membros/put_membro.php",
                   {
                     method: "POST",
                     body: formData,
@@ -280,10 +280,13 @@ function toggleAdicionar() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("../../scripts/php/admin/postMembros.php", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "../../scripts/php/admin/membros/post_membros.php",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const result = await response.json();
 

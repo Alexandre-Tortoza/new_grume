@@ -2025,8 +2025,14 @@
   .text-accent-default {
     color: var(--color-accent-default);
   }
+  .text-dark-300 {
+    color: var(--color-dark-300);
+  }
   .text-dark-400 {
     color: var(--color-dark-400);
+  }
+  .text-dark-500 {
+    color: var(--color-dark-500);
   }
   .text-dark-700 {
     color: var(--color-dark-700);
@@ -2626,6 +2632,11 @@
         --tw-brightness: brightness(125%);
         filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
       }
+    }
+  }
+  .focus\:border-indigo-500 {
+    &:focus {
+      border-color: var(--color-indigo-500);
     }
   }
   .focus\:ring {

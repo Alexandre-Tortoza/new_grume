@@ -1,5 +1,5 @@
 <?php
-include('../config/dbConnection.php');
+include('../../config/dbConnection.php');
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -46,7 +46,7 @@ if (empty($dataFim)) {
 
 
 $fotoPath = null;
-$uploadDir = '../../../assets/membros';
+$uploadDir = '../../../../assets/membros';
 
 // Validação para o campo foto (obrigatório)
 if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {

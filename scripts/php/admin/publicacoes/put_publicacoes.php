@@ -1,5 +1,5 @@
 <?php
-include('../config/dbConnection.php');
+include('../../config/dbConnection.php');
 header('Content-Type: application/json');
 
 // Verifica se o método é POST
